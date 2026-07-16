@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M3 WORKSHOP — ABSTRACT PAINTING / AMSTERDAM</title>
+<meta name="description" content="M3 Workshop. Abstract paintings, made by hand in Amsterdam. One of one, never repeated.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face{
+    font-family:'Dark Mother';
+    src:url('DarkMother.woff2') format('woff2'),
+        url('DarkMother.otf') format('opentype'),
+        url('DarkMother.ttf') format('truetype');
+    font-weight:400;font-display:swap;
+  }
+  :root{
+    --paper:#C0C0C0;
+    --card:#D3D3D1;
+    --dark:#171512;
+    --bone:#DAD4C8;
+    --ink:#131211;
+    --sub:#56534D;
+    --dsub:#928B80;
+    --line:#A7A39B;
+    --dline:#39342E;
+    --oxblood:#6B2B26;
+    --wine:#6D2233;
+    --oxlit:#9A4038;
+    --shadow:0 40px 80px -30px rgba(19,18,17,0.5);
+    --goth:'Dark Mother','Grenze Gotisch',serif;
+    --ui:'Dark Mother','Grenze Gotisch',serif;
+    --mono:'Dark Mother','Grenze Gotisch',serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    font-family:var(--ui);
+    background-color:var(--paper);
+    color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.045;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  ::selection{background:var(--oxblood);color:var(--bone);}
+  :focus-visible{outline:2px solid var(--oxblood);outline-offset:3px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.4rem);}
+  .goth{font-family:var(--goth);font-weight:300;line-height:0.98;}
+  .mono{font-family:var(--mono);}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky;top:0;z-index:100;background:rgba(192,192,192,0.84);backdrop-filter:saturate(160%) blur(16px);border-bottom:1.5px solid var(--ink);}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:54px;max-width:1180px;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.4rem);}
+  .brand{font-family:var(--goth);font-weight:300;font-size:1.7rem;line-height:1;padding-top:4px;letter-spacing:0.02em;}
+  .nav-links{display:flex;gap:clamp(1rem,3vw,2.2rem);align-items:center;}
+  .nav-links a{font-family:var(--mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--ink);opacity:.8;transition:opacity .2s,color .2s;}
+  .nav-links a:hover{opacity:1;color:var(--oxblood);}
+  .nav-dot{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--sub);}
+  .nav-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--oxlit);}
+
+  /* ---------- TICKER ---------- */
+  /* vintage Casio LCD ticker */
+  .ticker{
+    position:relative;overflow:hidden;white-space:nowrap;
+    background-color:#9DAE7F;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.16), rgba(0,0,0,0.10)),
+      radial-gradient(120% 180% at 50% 0%, rgba(214,228,180,0.55), transparent 65%);
+    border-top:1.5px solid var(--ink);
+    border-bottom:1.5px solid var(--ink);
+    box-shadow:inset 0 3px 8px -2px rgba(30,40,20,0.55), inset 0 -2px 6px -2px rgba(30,40,20,0.4);
+  }
+  /* LCD pixel grid */
+  .ticker::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background-image:
+      repeating-linear-gradient(to right, rgba(40,50,30,0.13) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(to bottom, rgba(40,50,30,0.13) 0 1px, transparent 1px 3px);
+  }
+  .ticker-track{display:inline-block;padding:0.6rem 0;animation:scroll 26s linear infinite;position:relative;z-index:1;}
+  .ticker-track span{
+    font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.24em;
+    color:#4A4F44;text-shadow:0 1px 0 rgba(255,255,255,0.14);
+  }
+  .ticker-track b{color:#6E7463;font-weight:700;margin:0 1.2rem;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:clamp(3rem,7vw,6rem) 0 clamp(2rem,5vw,4rem);}
+  .hero-grid{display:grid;grid-template-columns:auto 1fr;gap:clamp(1rem,4vw,3rem);align-items:end;}
+  .hero-annot{font-family:var(--mono);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--sub);line-height:2.4;writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;}
+  .hero-main{position:relative;}
+  .hero-tag{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--oxblood);margin-bottom:1.2rem;}
+  .hero-title{font-family:var(--goth);font-weight:300;text-transform:none;font-size:clamp(3.2rem,13vw,9.5rem);line-height:0.88;letter-spacing:0.01em;position:relative;margin-left:-0.05em;}
+  .hero-title .glitch{position:relative;display:inline-block;color:var(--ink);
+    background:var(--wine);padding:0.04em 0.22em 0.1em;text-shadow:none;}
+  .hero-title .m3{display:inline-block;color:var(--wine);background:var(--dark);padding:0.04em 0.22em 0.1em;text-shadow:none;}
+  .hero-sub{font-size:clamp(1rem,2vw,1.35rem);color:var(--sub);max-width:40ch;margin:1.8rem 0 2rem;line-height:1.4;}
+  .hero-cta{display:flex;gap:0.9rem;flex-wrap:wrap;align-items:center;}
+  .btn{font-family:var(--mono);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.16em;padding:0.9rem 1.5rem;border:1.5px solid var(--ink);transition:background .2s,color .2s,transform .1s;display:inline-block;}
+  .btn:active{transform:translate(1px,1px);}
+  .btn-primary{background:var(--ink);color:var(--paper);}
+  .btn-primary:hover{background:var(--oxblood);border-color:var(--oxblood);color:var(--bone);}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper);}
+
+  .hero-shot{position:relative;margin-top:clamp(2rem,5vw,3.5rem);}
+  .hero-shot .canvas{aspect-ratio:21/9;box-shadow:var(--shadow);
+    background:radial-gradient(60% 90% at 30% 30%,#3a1512,transparent 55%),radial-gradient(50% 80% at 78% 70%,#4a453d,transparent 60%),linear-gradient(150deg,#1a1714,#0a0908);}
+  .tape{position:absolute;font-family:var(--mono);font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;background:rgba(19,18,17,0.9);color:var(--bone);padding:0.35rem 0.7rem;transform:rotate(-3.5deg);box-shadow:0 6px 14px -6px rgba(0,0,0,.5);}
+  .hero-shot .tape{top:-0.8rem;left:1.5rem;}
+  .hero-shot .plate{margin-top:0.9rem;font-family:var(--mono);font-size:0.68rem;color:var(--sub);letter-spacing:0.06em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;}
+
+  /* ---------- DARK PANEL ---------- */
+  .panel-dark{position:relative;background-color:var(--dark);color:var(--bone);overflow:hidden;
+    background-image:
+      radial-gradient(60% 60% at 20% 20%, rgba(255,255,255,0.045), transparent 60%),
+      radial-gradient(70% 60% at 85% 80%, rgba(0,0,0,0.4), transparent 60%),
+      radial-gradient(50% 50% at 60% 30%, rgba(107,43,38,0.18), transparent 62%);}
+  .panel-dark .stamp-abs{position:absolute;top:2rem;right:clamp(1.2rem,4vw,3rem);}
+
+  /* ---------- STATEMENT ---------- */
+  .statement{padding:clamp(4.5rem,11vw,8rem) 0;text-align:left;}
+  .statement .k{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--oxlit);margin-bottom:1.4rem;}
+  .statement h2{font-family:var(--goth);font-weight:300;font-size:clamp(2.8rem,9vw,6.5rem);line-height:0.98;max-width:15ch;margin-bottom:1.6rem;}
+  .statement p{font-family:var(--mono);font-size:clamp(0.85rem,1.6vw,1.05rem);color:var(--dsub);max-width:52ch;line-height:2;text-transform:uppercase;letter-spacing:0.06em;}
+  .statement p .em{color:var(--bone);}
+  .stamp{display:inline-block;font-family:var(--mono);font-size:0.64rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--oxlit);border:1.5px solid var(--oxlit);padding:0.35rem 0.7rem;transform:rotate(-5deg);}
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{display:flex;align-items:baseline;gap:1rem;margin-bottom:clamp(2rem,5vw,3rem);border-bottom:1.5px solid var(--ink);padding-bottom:1rem;flex-wrap:wrap;}
+  .section-label .no{font-family:var(--mono);font-size:0.8rem;color:var(--oxblood);letter-spacing:0.1em;}
+  .section-label h3{font-family:var(--goth);font-weight:300;font-size:clamp(2rem,6vw,4rem);line-height:1;}
+  .section-label .meta{font-family:var(--mono);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--sub);margin-left:auto;}
+
+  /* ---------- WORKS ---------- */
+  #works{padding:clamp(3.5rem,8vw,6rem) 0;}
+  .works-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.2rem,3vw,2.4rem);}
+  .work{position:relative;cursor:pointer;transition:transform .3s;}
+  .work:nth-child(even){transform:translateY(clamp(1rem,4vw,3rem));}
+  .work:hover{transform:translateY(-6px);}
+  .work:nth-child(even):hover{transform:translateY(calc(clamp(1rem,4vw,3rem) - 6px));}
+  .work .cv{aspect-ratio:4/3;box-shadow:var(--shadow);margin-bottom:1rem;transition:filter .3s;}
+  .work:hover .cv{filter:contrast(1.08) brightness(1.05);}
+  .work .wrow{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-top:1.5px solid var(--ink);padding-top:0.7rem;}
+  .work .wno{font-family:var(--mono);font-size:0.7rem;color:var(--oxblood);}
+  .work h4{font-family:var(--goth);font-weight:300;font-size:1.8rem;line-height:1;flex:1;}
+  .work .price{font-family:var(--mono);font-size:0.78rem;color:var(--ink);white-space:nowrap;}
+  .work .price.sold{color:var(--sub);}
+  .work .meta{font-family:var(--mono);font-size:0.66rem;color:var(--sub);margin-top:0.5rem;text-transform:uppercase;letter-spacing:0.08em;}
+  .work .collected{position:absolute;top:1rem;right:1rem;font-family:var(--mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--oxlit);border:1.5px solid var(--oxlit);background:rgba(19,18,17,0.55);padding:0.3rem 0.6rem;transform:rotate(-8deg);}
+  .cv1{background:radial-gradient(70% 60% at 40% 30%,#3a1512,transparent 60%),linear-gradient(150deg,#1a1714,#0c0a09);}
+  .cv2{background:radial-gradient(80% 70% at 60% 40%,#4a453d,transparent 65%),linear-gradient(160deg,#0d0c0b,#26231f);}
+  .cv3{background:radial-gradient(60% 60% at 50% 45%,#d8d2c6,transparent 62%),linear-gradient(140deg,#1a1714,#2a2620);}
+  .cv4{background:radial-gradient(75% 65% at 35% 65%,#6b2b26,transparent 60%),linear-gradient(45deg,#0c0a09,#231f1b);}
+  .cv5{background:linear-gradient(155deg,#312d26,#0e0c0a 72%);}
+  .cv6{background:radial-gradient(65% 55% at 70% 30%,#7a5648,transparent 60%),#100e0c;}
+
+  /* ---------- STUDIO ---------- */
+  .studio{padding:clamp(4rem,9vw,7rem) 0;display:grid;grid-template-columns:1.05fr 0.95fr;gap:clamp(2rem,5vw,4rem);align-items:center;}
+  .studio-media{position:relative;aspect-ratio:4/5;box-shadow:var(--shadow);
+    background:radial-gradient(60% 90% at 30% 40%,#2a2620,transparent 60%),radial-gradient(50% 80% at 80% 60%,#3a1512,transparent 60%),linear-gradient(160deg,#151310,#040302);}
+  .studio-media .tape{bottom:1.2rem;left:1.2rem;transform:rotate(-2.5deg);}
+  .studio-txt h3{font-family:var(--goth);font-weight:300;font-size:clamp(2.4rem,6.5vw,4.8rem);line-height:1;margin-bottom:1.6rem;}
+  .studio-txt p{font-family:var(--mono);font-size:0.8rem;color:var(--sub);max-width:50ch;line-height:2.1;margin-bottom:1.2rem;text-transform:uppercase;letter-spacing:0.05em;}
+  .studio-txt p b{color:var(--ink);font-weight:700;}
+  .stats{display:flex;gap:clamp(1.5rem,4vw,3.5rem);margin-top:2rem;border-top:1.5px solid var(--ink);padding-top:1.6rem;flex-wrap:wrap;}
+  .stats div span{font-family:var(--goth);font-weight:300;font-size:2.6rem;display:block;line-height:1;}
+  .stats div small{font-family:var(--mono);font-size:0.6rem;color:var(--sub);text-transform:uppercase;letter-spacing:0.16em;}
+
+  /* ---------- SHOP ---------- */
+  .shop{padding:clamp(3.5rem,8vw,6rem) 0;}
+  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,3vw,2rem);}
+  .prod{position:relative;border:1.5px solid var(--ink);transition:transform .25s,box-shadow .25s;background:var(--card);}
+  .prod:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
+  .prod .pv{aspect-ratio:1/1;border-bottom:1.5px solid var(--ink);}
+  .prod .pv.p1{background:radial-gradient(60% 60% at 50% 45%,#d8d2c6,transparent 62%),linear-gradient(140deg,#1a1714,#2a2620);}
+  .prod .pv.p2{background:linear-gradient(155deg,#312d26,#0e0c0a 72%);}
+  .prod .pv.tee{background:#0b0a09;display:flex;align-items:center;justify-content:center;}
+  .tee-art{width:52%;aspect-ratio:1/1;background:radial-gradient(70% 70% at 45% 40%,#6b2b26,transparent 62%),linear-gradient(150deg,#1a1714,#0c0a09);box-shadow:0 0 0 1px #26221e;}
+  .prod .pinfo{padding:1.1rem;}
+  .prod h4{font-family:var(--goth);font-weight:300;font-size:1.6rem;line-height:1;margin-bottom:0.4rem;}
+  .prod .m{font-family:var(--mono);font-size:0.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;}
+  .prod .prow{display:flex;justify-content:space-between;align-items:center;border-top:1.5px solid var(--ink);padding-top:0.9rem;}
+  .prod .amt{font-family:var(--mono);font-size:0.92rem;font-weight:700;}
+  .prod .buy{font-family:var(--mono);font-size:0.64rem;text-transform:uppercase;letter-spacing:0.16em;background:var(--ink);color:var(--paper);border:none;padding:0.55rem 1.1rem;cursor:pointer;transition:background .2s;display:inline-block;}
+  .prod .buy:hover{background:var(--oxblood);color:var(--bone);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:clamp(3.5rem,8vw,6rem) 0 2.5rem;}
+  .foot-big{font-family:var(--goth);font-weight:300;font-size:clamp(3rem,13vw,9rem);line-height:0.86;margin-bottom:1.4rem;
+    text-shadow:0.05em 0 rgba(120,150,85,0.8), -0.03em 0 rgba(60,80,45,0.35);}
+  .foot-mail{font-family:var(--mono);font-size:0.95rem;color:var(--oxlit);letter-spacing:0.04em;}
+  .foot-mail:hover{color:var(--bone);}
+  .foot-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;border-top:1.5px solid var(--dline);margin-top:clamp(2.5rem,5vw,3.5rem);padding-top:2rem;}
+  .foot-cols h5{font-family:var(--mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--dsub);margin-bottom:1rem;}
+  .foot-cols a,.foot-cols p{font-family:var(--mono);font-size:0.72rem;color:var(--bone);display:block;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.06em;transition:color .2s;}
+  .foot-cols a:hover{color:var(--oxlit);}
+  .fineprint{border-top:1.5px solid var(--dline);margin-top:2rem;padding-top:1.4rem;font-family:var(--mono);font-size:0.64rem;color:var(--dsub);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;text-transform:uppercase;letter-spacing:0.1em;}
+
+  /* --- blackletter legibility pass: it is narrow, so give small text more body + air --- */
+  .nav-links a{font-size:0.95rem;letter-spacing:0.08em;text-transform:none;}
+  .nav-dot{font-size:0.85rem;letter-spacing:0.08em;text-transform:none;}
+  .ticker-track span{font-size:1rem;letter-spacing:0.12em;text-transform:none;}
+  .hero-annot{font-size:0.9rem;letter-spacing:0.08em;text-transform:none;line-height:1.9;}
+  .hero-tag{font-size:1.05rem;letter-spacing:0.06em;text-transform:none;}
+  .hero-sub{font-size:clamp(1.2rem,2.3vw,1.6rem);line-height:1.35;}
+  .btn{font-size:1rem;letter-spacing:0.08em;text-transform:none;}
+  .tape{font-size:0.85rem;letter-spacing:0.08em;text-transform:none;}
+  .hero-shot .plate{font-size:0.95rem;letter-spacing:0.04em;text-transform:none;}
+  .statement .k{font-size:1rem;letter-spacing:0.08em;text-transform:none;}
+  .statement p{font-size:clamp(1.05rem,1.8vw,1.3rem);letter-spacing:0.02em;text-transform:none;line-height:1.75;}
+  .stamp{font-size:0.9rem;letter-spacing:0.06em;text-transform:none;}
+  .section-label .no{font-size:1.05rem;}
+  .section-label .meta{font-size:0.95rem;letter-spacing:0.06em;text-transform:none;}
+  .work .wno{font-size:0.95rem;}
+  .work .price{font-size:1.05rem;}
+  .work .meta{font-size:0.9rem;letter-spacing:0.03em;text-transform:none;}
+  .work .collected{font-size:0.85rem;letter-spacing:0.08em;text-transform:none;}
+  .studio-txt p{font-size:1.05rem;letter-spacing:0.02em;text-transform:none;line-height:1.75;}
+  .stats div small{font-size:0.9rem;letter-spacing:0.06em;text-transform:none;}
+  .prod .m{font-size:0.92rem;letter-spacing:0.04em;text-transform:none;}
+  .prod .amt{font-size:1.2rem;}
+  .prod .buy{font-size:0.95rem;letter-spacing:0.08em;text-transform:none;}
+  .foot-mail{font-size:1.25rem;letter-spacing:0.02em;}
+  .foot-cols h5{font-size:0.95rem;letter-spacing:0.1em;text-transform:none;}
+  .foot-cols a,.foot-cols p{font-size:0.98rem;letter-spacing:0.03em;text-transform:none;}
+  .fineprint{font-size:0.9rem;letter-spacing:0.03em;text-transform:none;}
+
+  .rise{opacity:0;transform:translateY(16px);animation:rise 1s cubic-bezier(.2,.7,.2,1) forwards;}
+  .d1{animation-delay:.05s;}.d2{animation-delay:.16s;}.d3{animation-delay:.3s;}.d4{animation-delay:.44s;}
+  @keyframes rise{to{opacity:1;transform:translateY(0);}}
+
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-annot{display:none;}
+    .works-grid{grid-template-columns:1fr;}
+    .work:nth-child(even){transform:none;}
+    .work:nth-child(even):hover{transform:translateY(-6px);}
+    .studio{grid-template-columns:1fr;}
+    .shop-grid{grid-template-columns:1fr;}
+    .foot-cols{grid-template-columns:1fr 1fr;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+    html{scroll-behavior:auto;}
+    .rise{opacity:1;transform:none;}
+    .ticker-track{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="#top" class="brand">M3</a>
+    <div class="nav-links">
+      <a href="#works">Works</a>
+      <a href="#studio">Studio</a>
+      <a href="#shop">Shop</a>
+      <a href="#contact">Contact</a>
+      <span class="nav-dot">Amsterdam</span>
+    </div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Abstract painting<b>/</b>One of one<b>/</b>Never repeated<b>/</b>Made by hand<b>/</b>Amsterdam noord<b>/</b>Est. MMXXIV<b>/</b>Oxide &amp; acrylic<b>/</b>Vol. 01<b>/</b>Abstract painting<b>/</b>One of one<b>/</b>Never repeated<b>/</b>Made by hand<b>/</b>Amsterdam noord<b>/</b>Est. MMXXIV<b>/</b>Oxide &amp; acrylic<b>/</b>Vol. 01<b>/</b></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<header id="top">
+  <div class="hero wrap">
+    <div class="hero-grid">
+      <div class="hero-annot rise d1">52.37°N / 4.90°E — Vol.01 — Recent works on canvas</div>
+      <div class="hero-main">
+        <p class="hero-tag rise d1">M3 Workshop — Studio, Amsterdam</p>
+        <div class="hero-title rise d2"><span class="m3">M3</span><br><span class="glitch">work shop</span></div>
+        <p class="hero-sub rise d3">Abstract paintings, built by hand in a single Amsterdam studio. Oxide, ash, oil. One of one — never repeated.</p>
+        <div class="hero-cta rise d3">
+          <a href="#works" class="btn btn-primary">Enter catalogue</a>
+          <a href="#shop" class="btn btn-ghost">Acquire</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-shot rise d4">
+      <span class="tape">Fig. 01</span>
+      <div class="canvas"></div>
+      <div class="plate"><span>Untitled — Oxide &amp; acrylic on canvas</span><span>2026 / AMS</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- STATEMENT (dark) -->
+<section class="panel-dark">
+  <div class="statement wrap">
+    <span class="stamp stamp-abs">1 / 1</span>
+    <p class="k">Manifesto — 001</p>
+    <h2>Not printed. Not editioned.</h2>
+    <p>Every surface is worked in layers until it settles into something true — then it is <span class="em">never made again</span>. No prints of the originals. No reruns. What leaves the studio does not come back.</p>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="no">002</span>
+      <h3>The Catalogue</h3>
+      <span class="meta">Recent works / on canvas</span>
+    </div>
+    <div class="works-grid" id="works-grid"></div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section id="studio">
+  <div class="studio wrap">
+    <div class="studio-media"><span class="tape">Studio — AMS Noord</span></div>
+    <div class="studio-txt">
+      <div class="section-label" style="border:none;padding:0;margin-bottom:1.4rem;">
+        <span class="no">003</span><span class="meta" style="margin-left:0;">The Studio</span>
+      </div>
+      <h3>Made by hand.<br>In the dark.</h3>
+      <p>M3 Workshop is a solitary practice in abstraction — <b>oxide, ash, oil and acrylic</b>, worked in layers until the surface stops fighting.</p>
+      <p>Each painting begins from a <b>material, not a plan</b>. Pressure and restraint: how much to build, and exactly when to stop.</p>
+      <div class="stats">
+        <div><span>1/1</span><small>No editions</small></div>
+        <div><span>40+</span><small>Works to date</small></div>
+        <div><span>AMS</span><small>Amsterdam NL</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop" class="shop">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="no">004</span>
+      <h3>Acquire</h3>
+      <span class="meta">Originals / prints / wearables</span>
+    </div>
+    <div class="shop-grid" id="shop-grid"></div>
+  </div>
+</section>
+
+<!-- FOOTER (dark) -->
+<footer id="contact" class="panel-dark">
+  <div class="wrap" style="padding-top:clamp(3.5rem,8vw,6rem);padding-bottom:2.5rem;">
+    <div class="foot-big">Let's talk</div>
+    <a href="mailto:hello@m3workshop.art" class="foot-mail">hello@m3workshop.art</a>
+    <div class="foot-cols">
+      <div>
+        <h5>Studio</h5>
+        <p>Amsterdam Noord</p>
+        <p>Netherlands</p>
+        <p>By appointment</p>
+      </div>
+      <div>
+        <h5>Index</h5>
+        <a href="#works">Works</a>
+        <a href="#studio">Studio</a>
+        <a href="#shop">Shop</a>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <a href="#shop">Originals</a>
+        <a href="#shop">Prints</a>
+        <a href="#shop">Artist Tee</a>
+      </div>
+      <div>
+        <h5>Elsewhere</h5>
+        <a href="#">Instagram</a>
+        <a href="#">Newsletter</a>
+        <a href="mailto:hello@m3workshop.art">Email</a>
+      </div>
+    </div>
+    <div class="fineprint">
+      <span>© MMXXVI M3 Workshop — Made by hand in Amsterdam</span>
+      <span>m3workshop.art</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var PLACEHOLDER = ['cv1','cv2','cv3','cv4','cv5','cv6'];
+  var SHOP_PH = ['p1','p2','tee'];
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function pad(n){ return ('00' + n).slice(-3); }
+  function metaLine(w){
+    return [w.medium, w.size, w.year].filter(Boolean).map(esc).join(' · ');
+  }
+  function imgStyle(src){
+    return src ? ' style="background:#0c0a09 url(\'' + encodeURI(src) + '\') center/cover no-repeat;"' : '';
+  }
+
+  function renderWorks(list){
+    var grid = document.getElementById('works-grid');
+    if(!grid) return;
+    grid.innerHTML = list.map(function(w, i){
+      var cls = w.image ? '' : ' ' + PLACEHOLDER[i % PLACEHOLDER.length];
+      return '<article class="work">'
+        + (w.sold ? '<span class="collected">Collected</span>' : '')
+        + '<div class="cv' + cls + '"' + imgStyle(w.image) + '></div>'
+        + '<div class="wrow"><span class="wno">' + pad(i + 1) + '</span>'
+        + '<h4>' + esc(w.title) + '</h4>'
+        + '<span class="price' + (w.sold ? ' sold' : '') + '">' + (w.sold ? '—' : esc(w.price)) + '</span></div>'
+        + '<p class="meta">' + metaLine(w) + '</p>'
+        + '</article>';
+    }).join('');
+  }
+
+  function renderShop(list){
+    var grid = document.getElementById('shop-grid');
+    if(!grid) return;
+    grid.innerHTML = list.map(function(p, i){
+      var ph = SHOP_PH[i % SHOP_PH.length];
+      var inner = (!p.image && ph === 'tee') ? '<div class="tee-art"></div>' : '';
+      var cls = p.image ? 'pv' : 'pv ' + ph;
+      var btn = p.link
+        ? '<a class="buy" href="' + esc(p.link) + '" target="_blank" rel="noopener">Acquire</a>'
+        : '<a class="buy" href="mailto:hello@m3workshop.art?subject=' + encodeURIComponent(p.title || '') + '">Acquire</a>';
+      return '<div class="prod">'
+        + '<div class="' + cls + '"' + imgStyle(p.image) + '>' + inner + '</div>'
+        + '<div class="pinfo"><h4>' + esc(p.title) + '</h4>'
+        + '<p class="m">' + esc(p.meta) + '</p>'
+        + '<div class="prow"><span class="amt">' + esc(p.price) + '</span>' + btn + '</div>'
+        + '</div></div>';
+    }).join('');
+  }
+
+  fetch('content/works.json', {cache: 'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(data){
+      renderWorks(data.works || []);
+      renderShop(data.shop || []);
+    })
+    .catch(function(err){
+      console.error('Could not load content/works.json', err);
+    });
+})();
+</script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', function(user){
+      if (!user) {
+        window.netlifyIdentity.on('login', function(){ document.location.href = '/admin/'; });
+      }
+    });
+  }
+</script>
+</body>
+</html>

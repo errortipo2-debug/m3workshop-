@@ -1,0 +1,81 @@
+{
+  "works": [
+    {
+      "title": "Ossuary",
+      "image": "",
+      "medium": "Oxide & acrylic / canvas",
+      "size": "140×100",
+      "year": "2026",
+      "price": "€ 1.450",
+      "sold": false
+    },
+    {
+      "title": "Ash Column",
+      "image": "",
+      "medium": "Mixed media / linen",
+      "size": "120×80",
+      "year": "2026",
+      "price": "€ 1.200",
+      "sold": false
+    },
+    {
+      "title": "Bone Light",
+      "image": "",
+      "medium": "Acrylic / linen",
+      "size": "80×80",
+      "year": "2025",
+      "price": "€ 890",
+      "sold": false
+    },
+    {
+      "title": "Dried Bloom",
+      "image": "",
+      "medium": "Oil & acrylic / canvas",
+      "size": "120×90",
+      "year": "2025",
+      "price": "€ 1.320",
+      "sold": false
+    },
+    {
+      "title": "Smoke no.4",
+      "image": "",
+      "medium": "Acrylic / canvas",
+      "size": "100×100",
+      "year": "2025",
+      "price": "€ 1.150",
+      "sold": false
+    },
+    {
+      "title": "Rust Hours",
+      "image": "",
+      "medium": "Mixed media / canvas",
+      "size": "130×90",
+      "year": "2024",
+      "price": "€ 1.400",
+      "sold": true
+    }
+  ],
+  "shop": [
+    {
+      "title": "Bone Light",
+      "image": "",
+      "meta": "Original · 80×80 · framed",
+      "price": "€ 890",
+      "link": ""
+    },
+    {
+      "title": "Smoke no.4",
+      "image": "",
+      "meta": "Giclée print · A2 · ed. of 25",
+      "price": "€ 75",
+      "link": ""
+    },
+    {
+      "title": "Artist Tee",
+      "image": "",
+      "meta": "Support your local artist · AMS",
+      "price": "€ 38",
+      "link": ""
+    }
+  ]
+}
