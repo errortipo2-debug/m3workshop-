@@ -1,0 +1,102 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "images"
+
+locale: "es"
+
+collections:
+  - name: "contenido"
+    label: "Web"
+    files:
+      - name: "textos"
+        label: "Textos de la web"
+        file: "content/site.json"
+        description: "Edita los textos, el email y los enlaces de toda la web."
+        fields:
+          - { label: "Email de contacto", name: "email", widget: "string" }
+          - label: "Cabecera (hero)"
+            name: "_hero"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Etiqueta pequeña (arriba)", name: "hero_tag", widget: "string" }
+              - { label: "Frase de presentación", name: "hero_sub", widget: "text" }
+              - { label: "Anotación lateral (coordenadas)", name: "hero_annot", widget: "string" }
+              - { label: "Ubicación (punto verde del menú)", name: "nav_location", widget: "string" }
+          - label: "Ticker (banda verde que corre)"
+            name: "ticker"
+            widget: "list"
+            label_singular: "Frase"
+            summary: "{{fields.text}}"
+            field: { label: "Frase", name: "text", widget: "string" }
+          - label: "Manifiesto (panel negro)"
+            name: "_manifiesto"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Etiqueta pequeña", name: "statement_k", widget: "string" }
+              - { label: "Título grande", name: "statement_title", widget: "string" }
+              - { label: "Texto", name: "statement_body", widget: "text" }
+          - label: "Estudio"
+            name: "_studio"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Título (Enter para 2 líneas)", name: "studio_title", widget: "text" }
+              - { label: "Párrafo 1", name: "studio_body1", widget: "text" }
+              - { label: "Párrafo 2", name: "studio_body2", widget: "text" }
+          - label: "Estadísticas del estudio"
+            name: "_stats"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Dato 1 — número", name: "stat1_n", widget: "string" }
+              - { label: "Dato 1 — etiqueta", name: "stat1_l", widget: "string" }
+              - { label: "Dato 2 — número", name: "stat2_n", widget: "string" }
+              - { label: "Dato 2 — etiqueta", name: "stat2_l", widget: "string" }
+              - { label: "Dato 3 — número", name: "stat3_n", widget: "string" }
+              - { label: "Dato 3 — etiqueta", name: "stat3_l", widget: "string" }
+          - label: "Pie de página"
+            name: "_footer"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Título grande", name: "foot_big", widget: "string" }
+              - { label: "Estudio — línea 1", name: "foot_studio1", widget: "string" }
+              - { label: "Estudio — línea 2", name: "foot_studio2", widget: "string" }
+              - { label: "Estudio — línea 3", name: "foot_studio3", widget: "string" }
+              - { label: "Enlace Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "Enlace Newsletter", name: "newsletter", widget: "string", required: false }
+              - { label: "Texto legal (abajo)", name: "fineprint", widget: "string" }
+      - name: "obras"
+        label: "Obras y tienda"
+        file: "content/works.json"
+        description: "Añade, edita o borra tus cuadros y los productos de la tienda."
+        fields:
+          - label: "Obras (catálogo)"
+            name: "works"
+            widget: "list"
+            label_singular: "Obra"
+            summary: "{{fields.title}} — {{fields.year}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Foto del cuadro", name: "image", widget: "image", required: false, hint: "Si lo dejas vacío se muestra un fondo de color." }
+              - { label: "Técnica", name: "medium", widget: "string", required: false, hint: "Ej: Oxide & acrylic / canvas" }
+              - { label: "Medidas", name: "size", widget: "string", required: false, hint: "Ej: 140×100" }
+              - { label: "Año", name: "year", widget: "string", required: false }
+              - { label: "Precio", name: "price", widget: "string", required: false, hint: "Ej: € 1.450" }
+              - { label: "Vendido", name: "sold", widget: "boolean", default: false, hint: "Si lo activas, aparece el sello Collected." }
+          - label: "Tienda"
+            name: "shop"
+            widget: "list"
+            label_singular: "Producto"
+            summary: "{{fields.title}} — {{fields.price}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Foto", name: "image", widget: "image", required: false }
+              - { label: "Descripción corta", name: "meta", widget: "string", required: false, hint: "Ej: Original · 80×80 · framed" }
+              - { label: "Precio", name: "price", widget: "string", required: false }
+              - { label: "Enlace de pago", name: "link", widget: "string", required: false, hint: "Pega aquí el link de Mollie/Stripe. Si lo dejas vacío, el botón abre un email." }
